@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { register as registerUser } from '@/store/slices/authSlice';
 import { RootState } from '@/store/store';
 import { toast } from 'sonner';
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),

@@ -10,7 +10,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { login } from '@/store/slices/authSlice';
 import { RootState } from '@/store/store';
 import { toast } from 'sonner';
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email format'),

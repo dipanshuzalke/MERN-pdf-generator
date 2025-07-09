@@ -14,7 +14,7 @@ import {
 } from '@/store/slices/productSlice'
 import { RootState } from '@/store/store'
 import { toast } from 'sonner'
-import Navbar from './Navbar'
+import Navbar from '../components/Navbar'
 
 const productSchema = z.object({
   name: z.string().min(1, 'Product name is required'),
