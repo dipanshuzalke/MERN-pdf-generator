@@ -20,10 +20,16 @@ const initialState: AuthState = {
   error: null,
 };
 
+// Set API base URL depending on environment
+const BASE_URL =
+  import.meta.env.MODE === 'production'
+    ? 'https://mern-pdf-generator.onrender.com/api'
+    : '/api';
+
 export const register = createAsyncThunk(
   'auth/register',
   async (userData: { name: string; email: string; password: string }) => {
-    const response = await fetch('/api/register', {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
@@ -41,7 +47,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials: { email: string; password: string }) => {
-    const response = await fetch('/api/login', {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
@@ -63,7 +69,7 @@ export const fetchUser = createAsyncThunk(
   async (_, { getState }) => {
     const token = (getState() as any).auth.token;
     
-    const response = await fetch('/api/user', {
+    const response = await fetch(`${BASE_URL}/user`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

@@ -26,12 +26,18 @@ const initialState: InvoiceState = {
   error: null,
 };
 
+// Set API base URL depending on environment
+const BASE_URL =
+  import.meta.env.MODE === 'production'
+    ? 'https://mern-pdf-generator.onrender.com/api'
+    : '/api';
+
 export const generateInvoice = createAsyncThunk(
   'invoices/generate',
   async (invoiceData: { products: Product[]; totals: any }, { getState }) => {
     const token = (getState() as any).auth.token;
     
-    const response = await fetch('/api/invoices', {
+    const response = await fetch(`${BASE_URL}/invoices`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +60,7 @@ export const fetchInvoices = createAsyncThunk(
   async (_, { getState }) => {
     const token = (getState() as any).auth.token;
     
-    const response = await fetch('/api/invoices', {
+    const response = await fetch(`${BASE_URL}/invoices`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
