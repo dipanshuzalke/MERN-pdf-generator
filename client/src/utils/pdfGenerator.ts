@@ -33,9 +33,9 @@ export const generatePDF = ({
   // Colors
   // Remove unsupported linearGradient usage
   // Use solid colors instead
-  const darkHeader = '#23233a';
-  const highlight = '#CCF575';
-  const blue = '#2563eb';
+  // const darkHeader = '#23233a';
+  // const highlight = '#CCF575';
+  // const blue = '#2563eb';
 
   // Header: Logo and Title
   doc.setFont('helvetica', 'bold');
@@ -115,8 +115,8 @@ export const generatePDF = ({
     doc.setTextColor(60, 60, 60);
     doc.text(product.name, col1, rowY + 19);
     doc.text(String(product.quantity), col2, rowY + 19, { align: 'center' });
-    doc.text(`₹  ${product.rate}`, col3, rowY + 19, { align: 'right' });
-    doc.text(`₹  ${product.total}`, col4, rowY + 19, { align: 'right' });
+    doc.text(`${product.rate}`, col3, rowY + 19, { align: 'right' });
+    doc.text(`${product.total}`, col4, rowY + 19, { align: 'right' });
     rowY += tableHeight;
   });
 
@@ -130,17 +130,17 @@ export const generatePDF = ({
   doc.setFontSize(12);
   doc.setTextColor(80, 80, 80);
   doc.text('Total Charges', rightMargin - totalsBoxWidth + 16, totalsBoxY + 24);
-  doc.text(`₹ ${totals.subtotal.toFixed(0)}`, rightMargin - 16, totalsBoxY + 24, { align: 'right' });
+  doc.text(`${totals.subtotal.toFixed(0)}`, rightMargin - 16, totalsBoxY + 24, { align: 'right' });
   doc.setTextColor(120, 120, 120);
   doc.text('GST (18%)', rightMargin - totalsBoxWidth + 16, totalsBoxY + 42);
-  doc.text(`₹ ${totals.totalGst.toFixed(0)}`, rightMargin - 16, totalsBoxY + 42, { align: 'right' });
+  doc.text(`${totals.totalGst.toFixed(0)}`, rightMargin - 16, totalsBoxY + 42, { align: 'right' });
   doc.setDrawColor(220, 220, 220);
   doc.line(rightMargin - totalsBoxWidth + 16, totalsBoxY + 50, rightMargin - 16, totalsBoxY + 50);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(14);
   doc.setTextColor(37, 99, 235);
   doc.text('Total Amount', rightMargin - totalsBoxWidth + 16, totalsBoxY + 68);
-  doc.text(`₹ ${totals.grandTotal.toFixed(0)}`, rightMargin - 16, totalsBoxY + 68, { align: 'right' });
+  doc.text(`${totals.grandTotal.toFixed(0)}`, rightMargin - 16, totalsBoxY + 68, { align: 'right' });
 
   // Date bottom left
   doc.setFont('helvetica', 'normal');

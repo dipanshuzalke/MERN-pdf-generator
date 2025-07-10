@@ -1,11 +1,7 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FileText, Download, Mail, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Separator } from '@/components/ui/separator';
 import { Layout } from '@/components/Layout';
 import { RootState } from '@/store/store';
 import { generateInvoice } from '@/store/slices/invoiceSlice';
@@ -42,7 +38,6 @@ export function GenerateInvoice() {
       totals,
       user: user!,
     });
-    toast.success('PDF downloaded successfully!');
   };
 
   if (products.length === 0) {
@@ -103,7 +98,7 @@ export function GenerateInvoice() {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product, idx) => (
+                {products.map((product: any, idx: number) => (
                   <tr key={product.id} className={idx % 2 === 1 ? 'bg-gray-100/60' : ''}>
                     <td className="py-2 px-4 italic text-black">{product.name}</td>
                     <td className="py-2 px-4 text-center text-black">{product.quantity}</td>

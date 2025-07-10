@@ -35,9 +35,30 @@ const calculateTotals = (products: Product[]) => {
   return { subtotal, totalGst, grandTotal };
 };
 
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('products');
+    if (serializedState === null) {
+      return initialState;
+    }
+    return JSON.parse(serializedState);
+  } catch (e) {
+    return initialState;
+  }
+};
+
+const saveState = (state: ProductState) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('products', serializedState);
+  } catch (e) {
+    // Ignore write errors
+  }
+};
+
 const productSlice = createSlice({
   name: 'products',
-  initialState,
+  initialState: loadState(),
   reducers: {
     addProduct: (state, action: PayloadAction<Omit<Product, 'id' | 'total' | 'gst'>>) => {
       const { name, quantity, rate } = action.payload;
@@ -55,11 +76,12 @@ const productSlice = createSlice({
 
       state.products.push(product);
       state.totals = calculateTotals(state.products);
+      saveState(state);
     },
     updateProduct: (state, action: PayloadAction<Product>) => {
-      const index = state.products.findIndex(p => p.id === action.payload.id);
+      const index = state.products.findIndex((p: Product) => p.id === action.payload.id);
       if (index !== -1) {
-        const { name, quantity, rate } = action.payload;
+        const { quantity, rate } = action.payload;
         const total = quantity * rate;
         const gst = total * 0.18;
 
@@ -69,15 +91,18 @@ const productSlice = createSlice({
           gst,
         };
         state.totals = calculateTotals(state.products);
+        saveState(state);
       }
     },
     removeProduct: (state, action: PayloadAction<string>) => {
-      state.products = state.products.filter(p => p.id !== action.payload);
+      state.products = state.products.filter((p: Product) => p.id !== action.payload);
       state.totals = calculateTotals(state.products);
+      saveState(state);
     },
     clearProducts: (state) => {
       state.products = [];
       state.totals = { subtotal: 0, totalGst: 0, grandTotal: 0 };
+      saveState(state);
     },
   },
 });

@@ -65,11 +65,24 @@ export function Login() {
 
   return (
     <div className="relative min-h-screen bg-[#18181b] flex flex-col overflow-x-hidden">
-      {/* Top-center oval gradient */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] pointer-events-none z-0"
+       {/* Bottom-left radial gradient */}
+       <div
+        className="absolute bottom-0 left-0 w-[500px] h-[300px] pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(80,80,120,0.25) 0%, rgba(24,24,27,0.0) 70%)'
+          background: 'radial-gradient(ellipse at left bottom, rgba(204,245,117,0.35) 0%, rgba(24,24,27,0.0) 70%)'
+        }}
+      />
+       <div
+        className="absolute top-24 left-34 w-[500px] h-[300px] pointer-events-none z-0"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(204,245,117,0.20) 0%, rgba(24,24,27,0.0) 70%)'
+        }}
+      />
+       <div
+        className='absolute -right-80 top-0 w-[700px] h-[500px] pointer-events-none z-50'
+        style={{
+          background:
+            'radial-gradient(ellipse at center, rgba(80,80,120,0.60) 0%, rgba(24,24,27,0.0) 70%)'
         }}
       />
       <Navbar />
@@ -140,7 +153,8 @@ export function Login() {
                 >
                   Login now
                 </Button>
-                <Link to="/forgot-password" className="text-gray-400 hover:underline text-sm ml-2">Forget password ?</Link>
+                <span className="text-gray-400 text-sm">Don't have an account ?</span>
+                <Link to="/register" className="text-lime-200 hover:underline text-sm">Register</Link>
               </div>
             </form>
           </div>

@@ -46,9 +46,9 @@ export function Register() {
     <div className="relative min-h-screen bg-[#18181b] flex flex-col overflow-x-hidden">
       {/* Top-center radial gradient */}
       <div
-        className="absolute top-6 left-1/2 -translate-x-1/2 w-[500px] h-[300px] pointer-events-none z-0"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(204,245,117,0.20) 0%, rgba(24,24,27,0.0) 70%)'
+          background: 'radial-gradient(ellipse at center, rgba(204,245,117,0.18) 0%, rgba(24,24,27,0.0) 70%)'
         }}
       />
       {/* Bottom-left radial gradient */}
@@ -78,7 +78,7 @@ export function Register() {
                 <label htmlFor="name" className="block text-white mb-1 text-left text-base">Enter your name</label>
                 <Input
                   id="name"
-                  placeholder="Enter Email ID"
+                  placeholder="Enter Name"
                   className="bg-[#23232a] text-white border border-[#444] rounded-md h-12 px-4 focus:ring-lime-200 placeholder-gray-400 w-full text-base"
                   {...register('name')}
                 />

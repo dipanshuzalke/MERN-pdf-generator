@@ -3,14 +3,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { ArrowDown, ArrowUp, Plus } from 'lucide-react'
+import { ArrowDown, ArrowUp, Plus, Trash } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 import {
   addProduct,
   removeProduct,
-  clearProducts
 } from '@/store/slices/productSlice'
 import { RootState } from '@/store/store'
 import { toast } from 'sonner'
@@ -57,11 +56,6 @@ export function AddProducts () {
     navigate('/generate-invoice')
   }
 
-  const handleClearAll = () => {
-    dispatch(clearProducts())
-    toast.success('All products cleared!')
-  }
-
   return (
     <div className='relative min-h-screen w-full bg-[#18181b] flex flex-col overflow-x-hidden'>
       {/* Top-centered radial gradient for glow */}
@@ -92,13 +86,13 @@ export function AddProducts () {
               <label htmlFor='text' className='text-white'>
                 Product Name
               </label>
-                  <Input
+              <Input
                 id='name'
                 placeholder='Enter the product name'
                 className='bg-[#18181b] text-white border border-[#444] rounded-md h-12 px-4 mt-1 focus:ring-lime-200'
-                    {...register('name')}
-                  />
-                  {errors.name && (
+                {...register('name')}
+              />
+              {errors.name && (
                 <p className='text-xs text-red-400 mt-1'>
                   {errors.name.message}
                 </p>
@@ -121,36 +115,36 @@ export function AddProducts () {
                 <p className='text-xs text-red-400 mt-1'>
                   {errors.rate.message}
                 </p>
-                  )}
-                </div>
+              )}
+            </div>
             <div className='flex-1'>
               <label htmlFor='text' className='text-white'>
                 Quantity
               </label>
-                    <Input
+              <Input
                 id='quantity'
                 type='number'
                 min='1'
                 placeholder='Enter the Qty'
                 className='bg-[#18181b] text-white border border-[#444] rounded-md h-12 px-4 mt-1 focus:ring-lime-200'
-                      {...register('quantity', { valueAsNumber: true })}
-                    />
-                    {errors.quantity && (
+                {...register('quantity', { valueAsNumber: true })}
+              />
+              {errors.quantity && (
                 <p className='text-xs text-red-400 mt-1'>
                   {errors.quantity.message}
                 </p>
-                    )}
-                  </div>
-                </div>
+              )}
+            </div>
+          </div>
           <div className='flex justify-center mt-2'>
             <Button
               type='submit'
               className='bg-[#23232a] border border-lime-400 text-lime-400 hover:bg-lime-200 hover:text-black font-semibold flex items-center px-8 py-2 h-12 rounded-md shadow-none'
             >
               Add Product <Plus className='h-4 w-4 ml-2' />
-                </Button>
+            </Button>
           </div>
-              </form>
+        </form>
 
         {/* Products Table */}
         <div className='bg-[#18181b] rounded-xl overflow-hidden shadow border border-[#333] mb-10 mt-8'>
@@ -163,7 +157,9 @@ export function AddProducts () {
                     <ArrowUp className='w-5 h-5' />
                   </span>
                 </th>
-                <th className='px-4 py-3 text-left text-black font-semibold'>Price</th>
+                <th className='px-4 py-3 text-left text-black font-semibold'>
+                  Price
+                </th>
                 <th className='px-4 py-3 text-left text-black font-semibold'>
                   Quantity
                   <span className='inline-flex items-center ml-1 space-x-1 align-middle'>
@@ -173,6 +169,7 @@ export function AddProducts () {
                 <th className='px-4 py-3 text-left text-black font-semibold rounded-tr-xl'>
                   Total Price
                 </th>
+                <th className='px-4 py-3 text-center text-black font-semibold'></th>
               </tr>
             </thead>
             <tbody className='text-white'>
@@ -184,12 +181,22 @@ export function AddProducts () {
                 </tr>
               ) : (
                 <>
-                  {products.map(product => (
+                  {products.map((product: { id: string; name: string; rate: number; quantity: number; total: number }) => (
                     <tr key={product.id} className='border-b border-[#23232a]'>
                       <td className='px-4 py-3 italic'>{product.name}</td>
                       <td className='px-4 py-3'>{product.rate}</td>
                       <td className='px-4 py-3'>{product.quantity}</td>
                       <td className='px-4 py-3'>INR {product.total}</td>
+                      <td className='px-4 py-3 text-center'>
+                        <button
+                          type='button'
+                          onClick={() => handleRemoveProduct(product.id)}
+                          className='text-white hover:text-red-500 p-1 rounded-full focus:outline-none'
+                          title='Delete product'
+                        >
+                          <Trash className='w-4 h-4' />
+                        </button>
+                      </td>
                     </tr>
                   ))}
                   {/* Subtotal, GST, Total rows only if products exist */}
@@ -215,21 +222,21 @@ export function AddProducts () {
               )}
             </tbody>
           </table>
-              </div>
-              
+        </div>
+
         {/* Generate PDF Invoice Button */}
         <div className='flex justify-center'>
-                <Button
-                  onClick={handleNext}
+          <Button
+            onClick={handleNext}
             className={`bg-[#23232a] text-lime-400 hover:bg-lime-200 hover:text-black font-semibold py-5 px-24 rounded-lg text-lg ${
               products.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
             }`}
-                  disabled={products.length === 0}
-                >
+            disabled={products.length === 0}
+          >
             Generate PDF Invoice
-                </Button>
+          </Button>
         </div>
       </main>
-      </div>
+    </div>
   )
 }
