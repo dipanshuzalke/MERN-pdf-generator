@@ -55,7 +55,7 @@ export function Dashboard () {
   }
 
   return (
-    <main className='relative min-h-screen w-full bg-[#18181b] flex flex-col overflow-x-hidden'>
+    <main className='relative min-h-screen w-full text-white bg-[#18181b] flex flex-col overflow-x-hidden'>
       <Navbar />
       <div
         className='absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] pointer-events-none z-0'
