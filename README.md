@@ -94,8 +94,6 @@ mwen-pdf-generator/
 └── README.md
 ```
 
----
-
 ## 🧪 API Endpoints
 
 | Method | Endpoint           | Description                    |
@@ -111,3 +109,10 @@ mwen-pdf-generator/
 
 - 🌍 **Frontend**: [https://mern-pdf-generator-ochre.vercel.app/](https://mern-pdf-generator-ochre.vercel.app/)  
 - 🛠️ **Backend**: [https://mern-pdf-generator.onrender.com](https://mern-pdf-generator.onrender.com)]
+
+---
+
+- ## 🙋‍♂️ Author
+
+**Your Name** – [Dipanshu Zalke](dipanshuzalke.xyz)
+
